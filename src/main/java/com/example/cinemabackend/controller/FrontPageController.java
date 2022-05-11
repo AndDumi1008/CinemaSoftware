@@ -1,28 +1,31 @@
 package com.example.cinemabackend.controller;
 
-import com.example.cinemabackend.components.Movie;
-import org.springframework.web.bind.annotation.*;
+import com.example.cinemabackend.entity.Movie;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/cinema")
+//@RequestMapping("/api/cinema")
 public class FrontPageController {
 
     public List<Movie> movieList = new ArrayList<>();
     Movie movieTemp;
 
-    public List<String> listDate = new ArrayList<String>();
-
+    public List<String> listDate = new ArrayList<>();
 
 
     @RequestMapping("/add")
     public void addMovie() {
-        listDate.add(new String("20:20"));
-        listDate.add(new String("13:2"));
-        listDate.add(new String("21:45"));
-        listDate.add(new String("9:30"));
-
+        listDate.add("20:20");
+        listDate.add("13:2");
+        listDate.add("21:45");
+        listDate.add("9:30");
 
 
         Movie movie1 = new Movie("Avangers 1", "Action", "Avengers1.png", "https://www.youtube.com/watch?v=eOrNdBpGMv8", listDate);

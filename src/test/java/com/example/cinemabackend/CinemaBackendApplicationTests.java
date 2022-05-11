@@ -1,12 +1,6 @@
 package com.example.cinemabackend;
 
-import com.example.cinemabackend.components.Movie;
-import com.example.cinemabackend.controller.FrontPageController;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.util.AssertionErrors;
-
-import java.util.List;
 
 @SpringBootTest
 class CinemaBackendApplicationTests {

@@ -1,4 +1,4 @@
-package com.example.cinemabackend.components;
+package com.example.cinemabackend.entity;
 
 import java.util.List;
 
