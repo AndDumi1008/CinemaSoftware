@@ -4,5 +4,9 @@ public enum Category {
     DRAMA,
     COMEDY,
     ACTION,
-    HORROR
+    HORROR,
+    ADVENTURE,
+    ANIMATION,
+    FANTASY,
+    CRIME
 }
