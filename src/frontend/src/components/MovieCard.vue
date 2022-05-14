@@ -1,12 +1,10 @@
 <template>
 
   <div class="movie-card">
-<!--    <img :src="poster" :alt="title">-->
+    <div class="card-header">
 
-
-    <div class="movie-poster-container">
       <a :href="trailer">
-        <div class="movie-poster-container">
+        <div>
           <img class="image-responsive-poster" :src="poster" :alt="title">
         </div>
       </a>
@@ -14,15 +12,23 @@
 
       <div class="movie-details">
         <div class="details">
-          <h2><b>Title: {{title}}</b></h2>
-          <h3><b>Type: {{genre}}</b></h3>
+          <h2><b> {{title}} </b></h2>
+          <h3 class="movie-genre"><b> {{genre}} </b></h3>
         </div>
 
-        <router-link :to="'/buy?'+title">
-          <button class= "button" >
+
+          <button class= "buy-button" @click="showModal = true">
             Buy tickets
           </button>
-        </router-link>
+        <Teleport to="body">
+          <!-- use the modal component, pass in the prop -->
+          <modal :show="showModal" @close="showModal = false">
+            <template #header>
+              <h3>custom header</h3>
+            </template>
+          </modal>
+        </Teleport>
+
 
       </div>
     </div>
@@ -32,12 +38,16 @@
 
 <script>
 import axios from "axios";
-
+import Modal from "./ModalBox"
 export default {
 
   name: 'MovieComponent',
 
   props:['id'],
+
+  components: {
+    Modal,
+  },
 
   data() {
     return {
@@ -45,6 +55,7 @@ export default {
       genre: '',
       poster: "",
       trailer: '',
+      showModal: false,
     }
   },
 
@@ -60,16 +71,8 @@ export default {
         .catch(error => console.log(error))
   },
 
-
-
-  methods: {
-
-    buyButton() {
-      location.href = "http://localhost:3000/cinema/homepage";
-    }
-
-  }
 }
+
 </script>
 
 
@@ -78,11 +81,11 @@ export default {
 div.movie-card {
   background-image: linear-gradient(to right, rgba(204, 93, 0, 0.95), #f87300);
   box-shadow: 2px 2px rgba(204, 93, 0, 0.64);/*maybe leave it there*/
-  text-align: center;
   border-radius: 16px;
   border: 2px solid #8a4d00;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  display: table-cell;
+
 }
 
 img {
@@ -91,6 +94,8 @@ img {
   width:280px;
   height:400px;
   transition: 0.4s ease-in;
+  margin-left: auto;
+  margin-right: auto;
 
 }
 img:hover{
@@ -102,23 +107,39 @@ button {
   padding: 4% 6%;
   color: white;
   background-color: #ee9020;
-  text-align: center;
   cursor: pointer;
-  width: 80%;
   font-size: 18px;
-  bottom: 0;
-
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 16px;
-  height: 90%;
 }
 button:hover {
   opacity: 0.6;
 }
+.buy-button {
+  position:absolute;
+  height: 10%;
+  width: 80%;
+  bottom:2px;
+  left: 0;
+  right: 0;
+}
 
 a {
   cursor: pointer;
-
 }
 
+.movie-genre {
+  outline: 0;
+  background-color: #7b0dbd;
+  text-align: center;
+  width: 30%;
+  font-size: 14px;
+  bottom: 0;
+  border-radius: 12px;
+  height: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 </style>
