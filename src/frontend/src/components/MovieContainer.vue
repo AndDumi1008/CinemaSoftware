@@ -1,7 +1,7 @@
 <template>
 
-  <div class="scrollmenu" >
-    <a  v-for="id in data" :key="id">
+  <div class="movie-wrapper" >
+    <a  v-for="id in data" :key="id" class="movie-container">
       <Movie :id="id.id"> {{id.movies}}</Movie>
     </a>
   </div>
@@ -14,7 +14,6 @@ import axios from "axios";
 
 export default {
   name: "ScrollMenu",
-
 
   components: {
     Movie
@@ -31,10 +30,10 @@ export default {
     axios.get("/movies")
         .then(response => {response.data;
           this.data = response.data;
-          console.log(this.data)})
+        }
+        )
         .then((data) => {
               this.movies = Object.keys(data).length ;
-
         }
         )
         .catch(error => console.log(error))
@@ -43,18 +42,17 @@ export default {
 </script>
 
 <style scoped>
-div.scrollmenu {
+div.movie-wrapper {
   overflow: auto;
   white-space: break-spaces;
 }
 
-div.scrollmenu a {
+div.movie-wrapper a {
   display: inline-block;
   color: white;
   text-align: center;
   padding: 4%;
 
 }
-
 
 </style>
