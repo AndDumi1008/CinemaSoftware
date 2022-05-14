@@ -1,8 +1,8 @@
 <template>
 
   <div class="scrollmenu" >
-    <a  v-for="item in movies" :key="item">
-      <Movie :id="item-1"> {{item.movies}}</Movie>
+    <a  v-for="id in data" :key="id">
+      <Movie :id="id.id"> {{id.movies}}</Movie>
     </a>
   </div>
 
@@ -23,15 +23,18 @@ export default {
   data() {
     return {
       movies: 0,
-      id:0,
+      data:{},
     }
   },
 
   mounted() {
-    axios.get("api/cinema/movies")
-        .then(response => response.data)
+    axios.get("/movies")
+        .then(response => {response.data;
+          this.data = response.data;
+          console.log(this.data)})
         .then((data) => {
               this.movies = Object.keys(data).length ;
+
         }
         )
         .catch(error => console.log(error))

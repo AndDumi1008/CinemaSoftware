@@ -49,13 +49,13 @@ export default {
   },
 
   mounted() {
-    axios.get("api/cinema/movies/id=".concat(this.id))
+    axios.get("/movies/".concat(this.id))
         .then(response => response.data)
         .then((data) =>{
           this.title = data.title;
-          this.genre = data.genre;
-          this.trailer = data.movieTrailer;
-          this.poster = require('../assets/Posters/'.concat(data.posterLocation));
+          this.genre = data.category;
+          this.trailer = data.trailerUrl;
+          this.poster = data.imageUrl;
         })
         .catch(error => console.log(error))
   },
@@ -65,7 +65,7 @@ export default {
   methods: {
 
     buyButton() {
-      location.href = "http://localhost:3000/api/cinema/homepage";
+      location.href = "http://localhost:3000/cinema/homepage";
     }
 
   }
