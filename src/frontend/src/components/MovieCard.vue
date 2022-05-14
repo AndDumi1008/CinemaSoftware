@@ -142,4 +142,10 @@ a {
   margin-right: auto;
 }
 
+.movie-card {
+  width: 285px;
+  height: 600px;
+
+}
+
 </style>
