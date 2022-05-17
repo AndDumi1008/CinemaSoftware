@@ -9,9 +9,9 @@ export default {
 </script>
 
 <template>
-  <Transition name="modal">
+  <Transition name="modalBox">
     <div v-if="show" class="modal-mask">
-      <div class="modal-wrapper">
+      <div class="modal-wrapper" @click="$emit('close')">
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">Movie Titile</slot>
