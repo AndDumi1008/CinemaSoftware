@@ -23,6 +23,9 @@
             <template #header>
               <h3> {{ this.title}} </h3>
             </template>
+            <template #body>
+            <h3> {{ this.date}} </h3>
+</template>
           </modal>
         </Teleport>
 
@@ -52,6 +55,7 @@ export default {
       genre: '',
       poster: "",
       trailer: '',
+      date:[],
       showModal: false,
     }
   },
@@ -64,6 +68,7 @@ export default {
           this.genre = data.category;
           this.trailer = data.trailerUrl;
           this.poster = data.imageUrl;
+          this.date = data.date;
         })
         .catch(error => console.log(error))
   },
