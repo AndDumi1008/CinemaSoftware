@@ -8,8 +8,13 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.FIELD)
@@ -29,16 +34,45 @@ public abstract class MovieMapper {
         return new ObjectId(stringValue);
     }
 
+    // LocalDateTime to String method.
+    @Named("ldtToString")
+    public List<String> ldtToString(List<LocalDateTime> localDateTImeList) {
+        if(localDateTImeList == null || localDateTImeList.isEmpty()) {
+            return null;
+        }
+        List<String> stringDates = new ArrayList<>();
+        for(LocalDateTime  date : localDateTImeList) {
+            stringDates.add(date.toString());
+        }
+        return stringDates;
+    }
+
+    // LocalDateTime to String method.
+    @Named("stringToLdt")
+    public List<LocalDateTime> stringToLdt(List<String> stringDateList) {
+        if(stringDateList == null || stringDateList.isEmpty()) {
+            return null;
+        }
+        List<LocalDateTime> ldtDates = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
+        for(String date : stringDateList) {
+            ldtDates.add(LocalDateTime.parse(date, formatter));
+        }
+        return ldtDates;
+    }
     public abstract List<MovieSummary> movieItemListToMovieSummaryList(List<MovieEntity> movieEntityList);
 
 
-    @Mapping(source = "id", target = "id", qualifiedByName = "objectIdToString")
+    @Mapping(target = "id", qualifiedByName = "objectIdToString")
+    @Mapping(target = "projectionDate", qualifiedByName = "ldtToString")
     public abstract MovieDetails movieEntityToMovieDetails(MovieEntity movieEntity);
 
-    @Mapping(source = "id", target = "id", qualifiedByName = "StringToObjectId")
+    @Mapping(target = "id", qualifiedByName = "StringToObjectId")
+    @Mapping(target = "projectionDate", qualifiedByName = "stringToLdt")
     public abstract MovieEntity movieDetailsToMovieEntity(MovieDetails movieSummary);
 
-    @Mapping(source = "id", target = "id", qualifiedByName = "objectIdToString")
+    @Mapping(target = "id", qualifiedByName = "objectIdToString")
     public abstract MovieSummary movieEntityToMovieSummary(MovieEntity movieEntity);
 
 }
