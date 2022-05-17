@@ -29,12 +29,13 @@ export default {
   mounted() {
     axios.get("/movies")
         .then(response => {response.data;
-          this.data = response.data;
+          if( this.data !== null) {
+            this.data = response.data;
+          }
         }
         )
-        .then((data) => {
-              this.movies = Object.keys(data).length ;
-        }
+        .then((data) =>
+              this.movies = Object.keys(data).length
         )
         .catch(error => console.log(error))
   },
