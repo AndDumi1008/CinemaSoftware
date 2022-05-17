@@ -15,16 +15,13 @@
           <h2><b> {{title}} </b></h2>
           <h3 class="movie-genre"><b> {{genre}} </b></h3>
         </div>
-
-
-          <button class= "buy-button" @click="showModal = true">
+          <button class= "buy-button" @click="showModal = true" :id="this.id">
             Buy tickets
           </button>
         <Teleport to="body">
-          <!-- use the modal component, pass in the prop -->
           <modal :show="showModal" @close="showModal = false">
             <template #header>
-              <h3>custom header</h3>
+              <h3> {{ this.title}} </h3>
             </template>
           </modal>
         </Teleport>
