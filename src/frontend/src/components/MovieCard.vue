@@ -3,32 +3,37 @@
   <div class="movie-card">
     <div class="card-header">
 
-      <a :href="trailer">
         <div>
-          <img class="image-responsive-poster" :src="poster" :alt="title">
+          <img class="image-responsive-poster" :src="poster" :alt="title" @click="showModalTrailer = true" >
+
+          <Teleport to="body" id="trailer">
+            <trailer-modal :show="showModalTrailer" @close="showModalTrailer = false" :url="this.trailer">
+            </trailer-modal>
+          </Teleport>
         </div>
-      </a>
 
 
       <div class="movie-details">
+
         <div class="details">
           <h2><b> {{title}} </b></h2>
           <h3 class="movie-genre"><b> {{genre}} </b></h3>
         </div>
-          <button class= "buy-button" @click="showModal = true" :id="this.id">
+
+        <button class= "buy-button" @click="showModal = true" :id="this.id">
             Buy tickets
-          </button>
+        </button>
+
         <Teleport to="body">
           <modal :show="showModal" @close="showModal = false">
             <template #header>
               <h3> {{ this.title}} </h3>
             </template>
             <template #body>
-            <h3> {{ this.date}} </h3>
-</template>
+              <h3> {{ this.date}} </h3>
+            </template>
           </modal>
         </Teleport>
-
 
       </div>
     </div>
@@ -39,6 +44,7 @@
 <script>
 import axios from "axios";
 import Modal from "./ModalBox"
+import trailerModal from "./ModalTrailer"
 export default {
 
   name: 'MovieComponent',
@@ -47,6 +53,7 @@ export default {
 
   components: {
     Modal,
+    trailerModal,
   },
   //TODO: prob move custom body from Modal Box to its component file
   //https://forum.vuejs.org/t/how-to-format-date-for-display/3586
@@ -59,6 +66,7 @@ export default {
       trailer: '',
       date:[],
       showModal: false,
+      showModalTrailer: false,
     }
   },
   //TODO: format date to show a table of same day on what hours.= movie will be projected
@@ -75,6 +83,8 @@ export default {
         })
         .catch(error => console.log(error))
   },
+
+
 
 }
 
@@ -151,6 +161,11 @@ a {
   width: 285px;
   height: 600px;
 
+}
+
+#trailer {
+  width: 285px;
+  height: 600px;
 }
 
 </style>
