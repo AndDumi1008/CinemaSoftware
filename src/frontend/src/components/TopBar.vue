@@ -1,7 +1,7 @@
 <template>
 
   <div class="header">
-    <img alt="Cinema logo" src="../assets/Posters/cinema_logo.png" style="width: 500px ">
+    <img alt="Cinema logo" src="../assets/Posters/cinema_logo.png" class="logo-image">
   </div>
 
   <div class="icon-bar">
@@ -47,4 +47,9 @@ div.icon-bar {
   background-color: #FF8C00;
 }
 
+.logo-image {
+  max-width: 100%;
+  max-height: 15vh;
+  margin: auto;
+}
 </style>
