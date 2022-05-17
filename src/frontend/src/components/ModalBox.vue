@@ -2,7 +2,8 @@
 export default {
   name: 'ModalBox',
   props: {
-    show: Boolean
+    show: Boolean,
+    id: String,
   }
 }
 </script>
@@ -13,16 +14,15 @@ export default {
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            <slot name="header">default header</slot>
+            <slot name="header">Movie Titile</slot>
           </div>
 
           <div class="modal-body">
-            <slot name="body">default body</slot>
+            <slot name="body">Details about projection time</slot>
           </div>
 
           <div class="modal-footer">
-            <slot name="footer">
-              default footer
+            <slot name="footer">Specifies number of tickets
               <button
                   class="modal-default-button"
                   @click="$emit('close')"
