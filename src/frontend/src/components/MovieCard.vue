@@ -48,6 +48,8 @@ export default {
   components: {
     Modal,
   },
+  //TODO: prob move custom body from Modal Box to its component file
+  //https://forum.vuejs.org/t/how-to-format-date-for-display/3586
 
   data() {
     return {
@@ -59,7 +61,7 @@ export default {
       showModal: false,
     }
   },
-
+  //TODO: format date to show a table of same day on what hours.= movie will be projected
   mounted() {
     axios.get("/movies/".concat(this.id))
         .then(response => response.data)
@@ -68,7 +70,8 @@ export default {
           this.genre = data.category;
           this.trailer = data.trailerUrl;
           this.poster = data.imageUrl;
-          this.date = data.date;
+          this.date = data.projectionDate;
+          // console.log(data.projectionDate);
         })
         .catch(error => console.log(error))
   },
