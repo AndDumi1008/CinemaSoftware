@@ -1,6 +1,6 @@
 package com.example.cinemabackend.entity;
 
-import com.example.cinemabackend.service.TicketImpl;
+import com.example.cinemabackend.service.TicketServiceImpl;
 import lombok.Builder;
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -10,5 +10,5 @@ import org.bson.types.ObjectId;
 public class User {
 
     private ObjectId movieId;
-    private TicketImpl tickets;
+    private TicketServiceImpl tickets;
 }

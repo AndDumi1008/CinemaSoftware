@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class TicketImpl implements TicketService {
+public class TicketServiceImpl implements TicketService {
 
     private Integer adult;
     private Integer child;
