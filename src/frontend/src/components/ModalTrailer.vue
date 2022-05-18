@@ -14,8 +14,8 @@ export default {
 
 <template>
   <Transition name="modal-trailer">
-    <div v-if="show" class="modal-mask" >
-    <div class="modal-wrapper" @click="$emit('close')">
+    <div v-if="show" class="video-mask" >
+    <div class="video-wrapper" @click="$emit('close')">
       <div class="video-container">
           <iframe :src="this.url" class="video-player"/>
     </div>
@@ -27,7 +27,7 @@ export default {
 
 <style>
 
-.modal-mask {
+.video-mask {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -39,7 +39,7 @@ export default {
   transition: opacity 0.3s ease;
 }
 
-.modal-wrapper {
+.video-wrapper {
   display: table-cell;
   vertical-align: middle;
 }
@@ -55,6 +55,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width: 420px;
+  min-height: 240px;
   width: 55%;
   height: 50%;
 

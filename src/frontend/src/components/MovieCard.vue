@@ -13,14 +13,14 @@
         </div>
 
 
-      <div class="movie-details">
+      <div class="movie-details" >
 
         <div class="details">
           <h2><b> {{title}} </b></h2>
           <h3 class="movie-genre"><b> {{genre}} </b></h3>
         </div>
 
-        <button class= "buy-button" @click="showModal = true" :id="this.id">
+        <button class= "buy-button" @click="showModal = true" :id="this.id" >
             Buy tickets
         </button>
 
@@ -108,13 +108,13 @@ img {
   border-radius: 20px;
   width:280px;
   height:400px;
-  transition: 0.4s ease-in;
+  transition: 0.3s ease-in-out;
   margin-left: auto;
   margin-right: auto;
 
 }
 img:hover{
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 button {

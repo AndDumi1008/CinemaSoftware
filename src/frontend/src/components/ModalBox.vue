@@ -10,9 +10,9 @@ export default {
 
 <template>
   <Transition name="modalBox">
-    <div v-if="show" class="modal-mask">
+    <div v-if="show" class="modal-mask" >
       <div class="modal-wrapper" @click="$emit('close')">
-        <div class="modal-container">
+        <div class="modal-container" @click.stop="">
           <div class="modal-header">
             <slot name="header">Movie Titile</slot>
           </div>
@@ -22,7 +22,40 @@ export default {
           </div>
 
           <div class="modal-footer">
-            <slot name="footer">Specifies number of tickets
+            <slot name="footer">
+
+              <table>
+                <tr>
+                  <th>Tip</th>
+                  <th>Pret</th>
+                  <th>Numar bilete</th>
+
+                </tr>
+                <tr>
+                  <td>Adult </td>
+                  <td>19 Ron</td>
+                  <td><input type="number" style="width: 100%"></td>
+
+                </tr>
+                <tr>
+                  <td>Child </td>
+                  <td>17 Ron</td>
+                  <td><input type="number" style="width: 100%"></td>
+
+                </tr>
+                <tr>
+                  <td>Student </td>
+                  <td>15 Ron</td>
+                  <td><input type="number" style="width: 100%"></td>
+
+                </tr>
+                <tr>
+                  <td>Retired </td>
+                  <td>10 Ron</td>
+                  <td><input type="number" style="width:100%"></td>
+
+                </tr>
+              </table>
               <button
                   class="modal-default-button"
                   @click="$emit('close')"
@@ -66,6 +99,7 @@ export default {
 .modal-header h3 {
   margin-top: 0;
   color: #42b983;
+  text-align: center;
 }
 
 .modal-body {
@@ -73,7 +107,19 @@ export default {
 }
 
 .modal-default-button {
-  float: right;
+ text-align: center;
+  padding:5px 15px;
+margin-top:7%;
+}
+
+.modal-footer{
+  text-align: center;
+}
+
+.form-control{
+  width:100%;
+  max-width: 250px;
+  padding:5px 10px;
 }
 
 /*
