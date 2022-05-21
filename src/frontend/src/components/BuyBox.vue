@@ -32,14 +32,14 @@ export default {
 
                 </tr>
                 <tr>
-                  <td>Adult </td>
-                  <td>19 Ron</td>
+                  <td>Child </td>
+                  <td>13 Ron</td>
                   <td><input type="number" style="width: 100%"></td>
 
                 </tr>
                 <tr>
-                  <td>Child </td>
-                  <td>17 Ron</td>
+                  <td>Adult </td>
+                  <td>19 Ron</td>
                   <td><input type="number" style="width: 100%"></td>
 
                 </tr>

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -24,29 +26,20 @@ public class MovieServiceImpl implements MovieService {
         this.movieMapper = movieMapper;
     }
 
-    /**
-     * @param movieDetails
-     * @return
-     */
+
     @Override
     public MovieDetails save(MovieDetails movieDetails) {
         movieRepository.save(movieMapper.movieDetailsToMovieEntity(movieDetails));
         return movieDetails;
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public List<MovieSummary> findAll() {
         return movieMapper.movieItemListToMovieSummaryList(movieRepository.findAll());
     }
 
-    /**
-     * @param movieDetails
-     * @param id
-     * @return
-     */
+
     @Override
     public MovieDetails update(MovieDetails movieDetails, String id) {
         try {
@@ -57,7 +50,9 @@ public class MovieServiceImpl implements MovieService {
             movieEntity.setCategory(Category.valueOf(movieDetails.getCategory()));
             movieEntity.setImageUrl(movieDetails.getImageUrl());
             movieEntity.setTrailerUrl(movieDetails.getTrailerUrl());
-//            movieEntity.setProjectionDate(movieDetails.getProjectionDate);  //TODO: do this method
+            movieEntity.setProjectionDate(movieMapper.stringToLdtList(movieDetails.getProjectionDate()));
+//            movieEntity.setReservedSeats(movieMapper.stringToInteger(movieDetails.getReservedSeats()));
+            movieEntity.setReservedSeats(movieMapper.mapOfDto(movieDetails.getReservedSeats()));
 
             MovieEntity updateMovie = movieRepository.save(movieEntity);
             return movieMapper.movieEntityToMovieDetails(updateMovie);
@@ -66,24 +61,19 @@ public class MovieServiceImpl implements MovieService {
         }
     }
 
-    /**
-     * @param id
-     */
+
     @Override
     public void deleteById(String id) {
         try {
-            ObjectId eventObjectId = movieMapper.StringToObjectId(id);
-            movieRepository.findById(eventObjectId).orElseThrow();
-            movieRepository.deleteById(eventObjectId);
+            ObjectId movieObjectId = movieMapper.StringToObjectId(id);
+            movieRepository.findById(movieObjectId).orElseThrow();
+            movieRepository.deleteById(movieObjectId);
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The movie was not found.", e);
         }
     }
 
-    /**
-     * @param id
-     * @return
-     */
+
     @Override
     public MovieDetails getMovieById(String id) {
         try {

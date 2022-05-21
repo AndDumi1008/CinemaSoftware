@@ -43,7 +43,7 @@
 
 <script>
 import axios from "axios";
-import Modal from "./ModalBox"
+import Modal from "./BuyBox"
 import trailerModal from "./ModalTrailer"
 export default {
 
@@ -55,7 +55,6 @@ export default {
     Modal,
     trailerModal,
   },
-  //TODO: prob move custom body from Modal Box to its component file
   //https://forum.vuejs.org/t/how-to-format-date-for-display/3586
 
   data() {
@@ -79,7 +78,6 @@ export default {
           this.trailer = data.trailerUrl;
           this.poster = data.imageUrl;
           this.date = data.projectionDate;
-          // console.log(data.projectionDate);
         })
         .catch(error => console.log(error))
   },

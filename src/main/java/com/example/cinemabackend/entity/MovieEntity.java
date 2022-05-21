@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Document("movieitems")
 @Builder
@@ -22,5 +24,7 @@ public class MovieEntity {
     private String trailerUrl;
     private Category category;
     private List<LocalDateTime> projectionDate;
+
+    private Map<LocalDateTime, Set<Integer>> reservedSeats;
 
 }
