@@ -6,9 +6,6 @@ export default {
     url: String,
   },
 
-  mounted() {console.log(this.url)
-  }
-
 }
 </script>
 
@@ -17,7 +14,7 @@ export default {
     <div v-if="show" class="video-mask" >
     <div class="video-wrapper" @click="$emit('close')">
       <div class="video-container">
-          <iframe :src="this.url" class="video-player"/>
+          <iframe src="https://www.youtube.com/embed/r7OAo58GZc0?autoplay=1&mute=1" class="video-player"/>
     </div>
     </div>
     </div>
