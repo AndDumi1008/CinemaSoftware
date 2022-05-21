@@ -31,23 +31,14 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public Checkout update(Checkout checkout, String id) {
         try {
+            checkout.getReservedSeats().forEach(
+                    e ->{
+                        if(e < 0 )
+                            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Seat must be positive.");
+                    }
+            );
             ObjectId movieObjectId = movieMapper.StringToObjectId(id);
             MovieEntity movieEntity = movieRepository.findById(movieObjectId).orElseThrow();
-//            if (!movieEntity.getProjectionDate().contains(checkout.getProjectionTime()))
-//                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Date was not found.");
-
-//            if(movieEntity.getReservedSeats().containsKey(checkout.getProjectionTime()) || movieEntity.getProjectionDate().contains(checkout.getProjectionTime())) {
-//                Map<LocalDateTime, Set<Integer>> reservedSeats = movieEntity.getReservedSeats();
-//
-//                reservedSeats.put(checkout.getProjectionTime(), checkout.getReservedSeats());
-//
-//                movieEntity.setReservedSeats(reservedSeats);
-//                movieRepository.save(movieEntity);
-//
-//                checkout.setName(movieEntity.getTitle());
-//                return checkout;
-//            }
-
 
             if (movieEntity.getReservedSeats().get(checkout.getProjectionTime()).containsAll(checkout.getReservedSeats()))
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Seat(s) already reserved.");
@@ -56,10 +47,6 @@ public class CheckoutServiceImpl implements CheckoutService {
             Set<Integer> oldSeats = movieEntity.getReservedSeats().get(checkout.getProjectionTime());
             oldSeats.addAll(checkout.getReservedSeats());
 
-//            Map<LocalDateTime, Set<Integer>> reservedSeats = movieEntity.getReservedSeats();
-//            Map<LocalDateTime, Set<Integer>> reservedSeats = Map.of(checkout.getProjectionTime(), Set.of());
-
-//            reservedSeats.put(checkout.getProjectionTime(), oldSeats);
             movieEntity.getReservedSeats().put(checkout.getProjectionTime(), oldSeats);
             movieEntity.setReservedSeats(movieEntity.getReservedSeats());
             movieRepository.save(movieEntity);
