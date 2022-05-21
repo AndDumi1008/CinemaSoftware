@@ -2,6 +2,7 @@
 
   <div class="nav">
     <router-link to="/#/buy-tickets-cinema/"/>
+<!--    <router-link to="/">Home</router-link>-->
   </div>
 
   <router-view/>

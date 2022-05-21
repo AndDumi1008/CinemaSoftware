@@ -68,6 +68,7 @@ export default {
       showModalTrailer: false,
     }
   },
+  //TODO: format date to show a table of same day on what hours.= movie will be projected
   mounted() {
     axios.get("/movies/".concat(this.id))
         .then(response => response.data)

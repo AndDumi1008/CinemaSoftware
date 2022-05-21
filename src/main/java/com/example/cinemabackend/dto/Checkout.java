@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.bson.types.ObjectId;
 
-import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -18,8 +17,6 @@ public class Checkout {
     private String name;
     private Float totalPrice;
     private LocalDateTime projectionTime;
-
-    @Positive
     private Set<Integer> reservedSeats;
 
 }
