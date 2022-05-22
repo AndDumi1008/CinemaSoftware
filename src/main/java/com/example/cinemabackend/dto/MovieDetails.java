@@ -18,6 +18,6 @@ public class MovieDetails {
     private String imageUrl;
     private String trailerUrl;
     private String category;
-    private List<String> projectionDate;
+    private Map<String, Set<String>> projectionDate;
     private Map<String,Set<String>> reservedSeats;
 }

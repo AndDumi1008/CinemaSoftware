@@ -1,16 +1,6 @@
-<script>
-export default {
-  name: 'ModalBox',
-  props: {
-    show: Boolean,
-    id: String,
-  }
-}
-</script>
-
 <template>
   <Transition name="modalBox">
-    <div v-if="show" class="modal-mask" >
+    <div v-if="show" class="modal-mask">
       <div class="modal-wrapper" @click="$emit('close')">
         <div class="modal-container" @click.stop="">
           <div class="modal-header">
@@ -18,7 +8,13 @@ export default {
           </div>
 
           <div class="modal-body">
-            <slot name="body">Details about projection time</slot>
+            <slot name="body">
+              <select name="date">
+
+                <option v-for="option in date" :key="option">{{option}}</option>
+
+              </select>
+            </slot>
           </div>
 
           <div class="modal-footer">
@@ -32,41 +28,71 @@ export default {
 
                 </tr>
                 <tr>
-                  <td>Child </td>
+                  <td>Child</td>
                   <td>13 Ron</td>
                   <td><input type="number" style="width: 100%"></td>
 
                 </tr>
                 <tr>
-                  <td>Adult </td>
+                  <td>Adult</td>
                   <td>19 Ron</td>
                   <td><input type="number" style="width: 100%"></td>
 
                 </tr>
                 <tr>
-                  <td>Student </td>
+                  <td>Student</td>
                   <td>15 Ron</td>
                   <td><input type="number" style="width: 100%"></td>
 
                 </tr>
                 <tr>
-                  <td>Retired </td>
+                  <td>Retired</td>
                   <td>10 Ron</td>
                   <td><input type="number" style="width:100%"></td>
 
                 </tr>
               </table>
+
               <button
                   class="modal-default-button"
                   @click="$emit('close')"
-              >OK</button>
+              >OK
+              </button>
             </slot>
           </div>
         </div>
       </div>
     </div>
   </Transition>
+
 </template>
+
+<script>
+
+
+import axios from "axios";
+
+export default {
+  name: 'ModalBox',
+  props:
+    ['id','show'],
+  data() {
+    return {
+      date:[],
+    }
+  },
+  updated() {
+    axios.get("/movies/".concat(this.id))
+        .then(response => response.data)
+        .then((data) =>{
+          this.date = data.projectionDate;
+          console.log(data)
+        })
+        .catch(error => console.log(error))
+  },
+}
+
+</script>
 
 <style>
 .modal-mask {
@@ -107,19 +133,19 @@ export default {
 }
 
 .modal-default-button {
- text-align: center;
-  padding:5px 15px;
-margin-top:7%;
+  text-align: center;
+  padding: 5px 15px;
+  margin-top: 7%;
 }
 
-.modal-footer{
+.modal-footer {
   text-align: center;
 }
 
-.form-control{
-  width:100%;
+.form-control {
+  width: 100%;
   max-width: 250px;
-  padding:5px 10px;
+  padding: 5px 10px;
 }
 
 /*

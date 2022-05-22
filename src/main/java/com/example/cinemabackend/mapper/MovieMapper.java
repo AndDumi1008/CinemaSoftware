@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.FIELD)
@@ -30,28 +31,45 @@ public abstract class MovieMapper {
 
     // LocalDateTime to String method.
     @Named("ldtToStringList")
-    public List<String> ldtToStringList(List<LocalDateTime> localDateTImeList) {
+    public Map<String, Set<String>> ldtToStringList(List<LocalDateTime> localDateTImeList) {
         if (localDateTImeList == null || localDateTImeList.isEmpty()) {
             return null;
         }
-        List<String> stringDates = new ArrayList<>();
-        for (LocalDateTime date : localDateTImeList) {
-            stringDates.add(date.toString());
-        }
+        Map<String, Set<String>> stringDates = new HashMap<>();
+        Set<String> time = new HashSet<>();
+        Set<String> dateSet = new HashSet<>();
+        localDateTImeList.forEach(
+                date -> {
+                    String dayMonth = date.getYear() + "-" + date.getMonthValue() + "-" + date.getDayOfMonth();
+                    String hourMinute = date.getHour() + ":" + date.getMinute();
+                    time.add(hourMinute);
+                    dateSet.add(dayMonth);
+
+                }
+        );
+        dateSet.forEach( dateTime -> {
+            stringDates.put(dateTime, time);
+        });
+
+
+
         return stringDates;
     }
 
     // LocalDateTime to String method.
     @Named("stringToLdtList")
-    public List<LocalDateTime> stringToLdtList(List<String> stringDateList) {
+    public List<LocalDateTime> stringToLdtList(Map<String, Set<String>> stringDateList) {
         if (stringDateList == null || stringDateList.isEmpty()) {
             return null;
         }
         List<LocalDateTime> ldtDates = new ArrayList<>();
-//        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
-        for (String date : stringDateList) {
-            ldtDates.add(LocalDateTime.parse(date));
+
+        for (String date : stringDateList.keySet()) {
+            for(String timeSet : stringDateList.get(date)){
+                LocalDateTime dateFormated = LocalDateTime.parse(date + timeSet, DateTimeFormatter.ISO_DATE_TIME);
+                ldtDates.add(dateFormated);
+            }
         }
         return ldtDates;
     }

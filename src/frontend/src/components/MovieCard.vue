@@ -20,17 +20,17 @@
           <h3 class="movie-genre"><b> {{genre}} </b></h3>
         </div>
 
-        <button class= "buy-button" @click="showModal = true" :id="this.id" >
+        <button class= "buy-button" @click="showModal = true"  >
             Buy tickets
         </button>
 
         <Teleport to="body">
-          <modal :show="showModal" @close="showModal = false">
+          <modal :show="showModal" @close="showModal = false" :id="this.id">
             <template #header>
               <h3> {{ this.title}} </h3>
             </template>
             <template #body>
-              <h3> {{ this.date}} </h3>
+<!--              <h3> {{ this.date}} </h3>-->
             </template>
           </modal>
         </Teleport>
@@ -55,7 +55,6 @@ export default {
     Modal,
     trailerModal,
   },
-  //https://forum.vuejs.org/t/how-to-format-date-for-display/3586
 
   data() {
     return {
@@ -68,7 +67,6 @@ export default {
       showModalTrailer: false,
     }
   },
-  //TODO: format date to show a table of same day on what hours.= movie will be projected
   mounted() {
     axios.get("/movies/".concat(this.id))
         .then(response => response.data)
