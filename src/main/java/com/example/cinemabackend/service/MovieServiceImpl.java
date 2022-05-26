@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -51,7 +49,6 @@ public class MovieServiceImpl implements MovieService {
             movieEntity.setImageUrl(movieDetails.getImageUrl());
             movieEntity.setTrailerUrl(movieDetails.getTrailerUrl());
             movieEntity.setProjectionDate(movieMapper.stringToLdtList(movieDetails.getProjectionDate()));
-//            movieEntity.setReservedSeats(movieMapper.stringToInteger(movieDetails.getReservedSeats()));
             movieEntity.setReservedSeats(movieMapper.mapOfDto(movieDetails.getReservedSeats()));
 
             MovieEntity updateMovie = movieRepository.save(movieEntity);

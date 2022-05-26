@@ -30,7 +30,6 @@
               <h3> {{ this.title}} </h3>
             </template>
             <template #body>
-<!--              <h3> {{ this.date}} </h3>-->
             </template>
           </modal>
         </Teleport>

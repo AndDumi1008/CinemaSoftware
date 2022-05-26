@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -35,23 +36,13 @@ public abstract class MovieMapper {
         if (localDateTImeList == null || localDateTImeList.isEmpty()) {
             return null;
         }
+
         Map<String, Set<String>> stringDates = new HashMap<>();
-        Set<String> time = new HashSet<>();
-        Set<String> dateSet = new HashSet<>();
-        localDateTImeList.forEach(
-                date -> {
-                    String dayMonth = date.getYear() + "-" + date.getMonthValue() + "-" + date.getDayOfMonth();
-                    String hourMinute = date.getHour() + ":" + date.getMinute();
-                    time.add(hourMinute);
-                    dateSet.add(dayMonth);
 
-                }
-        );
-        dateSet.forEach( dateTime -> {
-            stringDates.put(dateTime, time);
-        });
-
-
+        for (LocalDateTime localDateTime : localDateTImeList) {
+            LocalTime toLocalTime = localDateTime.toLocalTime();
+            stringDates.computeIfAbsent(String.valueOf(localDateTime.toLocalDate()), k -> new HashSet<>()).add(String.valueOf(toLocalTime));
+        }
 
         return stringDates;
     }
@@ -66,9 +57,9 @@ public abstract class MovieMapper {
 
 
         for (String date : stringDateList.keySet()) {
-            for(String timeSet : stringDateList.get(date)){
-                LocalDateTime dateFormated = LocalDateTime.parse(date + timeSet, DateTimeFormatter.ISO_DATE_TIME);
-                ldtDates.add(dateFormated);
+            for (String timeSet : stringDateList.get(date)) {
+                LocalDateTime dateFormatted = LocalDateTime.parse(date + " " + timeSet, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                ldtDates.add(dateFormatted);
             }
         }
         return ldtDates;
